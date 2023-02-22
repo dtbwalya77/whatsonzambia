@@ -1,0 +1,56 @@
+{% extends "whatsonzambia/base.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+<div class="card mb-8 col-lg-6">
+  <h5 class="card-title h5 upper text-center">{{ object.title }}</h5>
+  <a href="#!"><img class="card-img-top" src="{{ object.post_image.url }}" alt="..." /></a>
+  <div class="text-center">
+
+  </div>
+
+
+  <div class="fh5co-blog animate-box">
+    <div class="blog-text">
+      <h6 class="card-title h6 text-primary"><strong>Date:</strong> {{ object.event_date }} | <strong>Time:</strong> {{ object.event_time }}</h6> 
+      <h5 class="card-title h5 text-secondary"><strong><u>{{ object.event_day }}</u></strong></h5>
+      <h6 class="card-title h6 text-primary"> <strong>Venue:</strong> {{ object.venue }}</h6>
+      <h6 class="card-title h6 text-primary"><strong>Town/City:</strong> {{ object.town }}</h6>
+      <h6 class="card-title h6 text-secondary"><strong>Charges:</strong> {{ object.charge }}</h6>
+      <hr>
+      {{ object.content }} 
+      <ul class="stuff">
+        <li>
+          <form action="{% url 'post_like' pk=post.id %}" method="post">
+            {% csrf_token %}
+            {% if like_status %}
+              <button class="button button1" type="submit" name="post-id" value="{{post.id}}" >
+                Unlike <i class="fa fa-thumbs-o-down"></i>
+              </button>        
+            {% else %}
+              <button class="button button1" type="submit" name="post-id" value="{{post.id}}">
+                Like <i class="fa fa-thumbs-o-up"></i>
+              </button>   
+            {% endif %}
+          </form>
+        </li>
+        <li>
+          <a class="button button1" href="{% url 'whatsonzambia-home' %}">Go Back</a>
+        </li>
+      </ul>
+      <hr>
+      <span class="posted_on">
+        {% if object.author == user %}
+        Posted: {{ object.date_posted }} by <a href="#">{{ object.author }}</a>
+        <div class="">
+          <a class="button button1 mt-3" href="{% url 'post-update' object.id %}">Update</a>
+          <a class="button button1 mt-3" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

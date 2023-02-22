@@ -1,0 +1,45 @@
+{% extends "whatsonzambia/base.html" %}
+{% block content %}
+{% load hitcount_tags %}
+
+{% if category_posts %}
+    <h3 class="text-center">{{ cats }} Category</h3>
+    <hr>
+    {% for post in category_posts %}      
+        <div class="card mb-8">
+        <hr>
+        <h5 class="card-title h5 mt-3 upper text-center">{{ post.title }}</h5>
+        <a href="#!"><img class="card-img-top" src="{{ post.post_image.url }}" alt="..." /></a>
+        <div class="card-body text-center">
+            <h5 class="card-title h6 text-secondary"><strong><u>{{ post.event_day }}</u></strong></h6>
+            <h6 class="card-title h6 text-primary"><strong>Date:</strong> {{ post.event_date }} | <strong>Time:</strong> {{ post.event_time }}</h6> 
+            <p>{% get_hit_count for post %} <span class="fa fa-eye fa_custom"></span> Views  |  
+            {{post.total_likes}} <span class="fa fa-thumbs-o-up fa_custom"></span> Like{{post.total_likes|pluralize}}</p>
+
+            <form action="{% url 'post-detail' pk=post.id %}" method="get">
+            <input type="hidden" name="post-id" value="{{post.id}}">
+            <button type="submit" class="btn btn-sm btn-primary">Read more →</button>
+            </form>
+        </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+    {% endfor %}
+{% else %}
+    <h3 class="text-center">Sorry no posts in this category!!!</h3>
+
+{% endif %}
+
+<!-- Pagination -->
+<hr>
+<div>
+  {% if posts.has_previous %}
+    <a class="btn btn-primary" href="{% url 'whatsonzambia-home' %}?page={{ posts.previous_page_number }}">Previous Page</a>
+  {% endif %}
+  {% if posts.has_next %}
+    <a class="btn btn-primary" href="{% url 'whatsonzambia-home' %}?page={{ posts.next_page_number }}">Next Page</a>
+  {% endif %}
+  
+</div>
+
+{% endblock content %}

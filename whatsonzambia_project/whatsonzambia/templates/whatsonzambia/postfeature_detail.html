@@ -1,0 +1,63 @@
+{% extends "whatsonzambia/base.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+  <!-- ======= Feature Section ======= -->
+  <div post-title>
+    <h5 class="card-title h5 upper text-center">{{ object.ft_title }}</h5>
+  </div>
+  <section id="post" class="post section-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 d-flex align-items-center justify-content-center">
+          <img src="{{ object.ft_post_image.url }}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="fh5co-blog animate-box">
+      <div class="blog-text">
+        <span class="posted_on">
+          <h6><strong>Date:</strong> {{ object.ft_event_date }} |<strong>Time:</strong> {{ object.ft_event_time }}</h6>          
+          <h5><u>{{ object.ft_event_day }}</u></h5>          
+          <h5><strong>Venue: </strong> {{ object.ft_venue }}</h5>
+          <h6><strong>Town/City: </strong> {{ object.ft_town }}</h6>
+          <h6><strong>Charges: </strong> {{ object.ft_charge }}</h6>
+        </span>
+        <hr>
+        {{ object.ft_content }} 
+        <ul class="stuff">
+          <li>
+            <form action="{% url 'feature_like' pk=feature.id %}" method="post">
+              {% csrf_token %}
+              {% if like_status %}
+                <button class="button button1" type="submit" name="feature-id" value="{{feature.id}}" >
+                  Unlike <i class="fa fa-thumbs-o-down"></i>
+                </button>        
+              {% else %}
+                <button class="button button1" type="submit" name="feature-id" value="{{feature.id}}">
+                  Like <i class="fa fa-thumbs-o-up"></i>
+                </button>   
+              {% endif %}
+            </form>
+          </li>
+          <li>
+            <a class="button button1" href="{% url 'whatsonzambia-home' %}">Go Back</a>
+          </li>
+        </ul>
+        <hr>
+        <span class="posted_on">
+          {% if object.author == user %}
+          Posted: {{ object.date_posted }} by <a href="#">{{ object.author }}</a>
+          <div class="">
+            <a class="button button1 mt-3" href="{% url 'feature-update' object.id %}">Update</a>
+            <a class="button button1 mt-3" href="{% url 'feature-delete' object.id %}">Delete</a>
+          </div>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </section><!-- End Feature Section -->
+
+  {% endblock content %}

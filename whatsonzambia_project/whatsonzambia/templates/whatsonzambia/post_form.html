@@ -1,0 +1,116 @@
+{% extends "accounts/form_base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+      <!-- ======= New Post Form Section ======= -->
+      <section id="contact" class="contact d-flex align-items-center">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h2>New Post</h2>
+          </div>
+          <div class="section-title">
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="form-group mt-3">   
+                  <input type="text" class="form-control" name="title" id="title" {% if form.is_bound %} value="{{ form.title.value }}{% endif %}" placeholder="Name of Event" required>
+                  {% for err in form.title.errors %}
+                      <small class="text-danger ml-2">{{ err }}</small>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group mt-3">   
+                  <input type="text" class="form-control" name="venue" id="venue" {% if form.is_bound %} value="{{ form.venue.value }}{% endif %}" placeholder="Venue" required>
+                  {% for err in form.venue.errors %}
+                      <small class="text-danger ml-2">{{ err }}</small>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group mt-3">
+                  <select class="form-select form-select-md" name="town" id="Town" class="form-control form-control-user">
+                    <option disabled="disabled" selected="selected" required>Select Town/City</option>
+                    <option value="Lusaka">Lusaka</option>
+                    <option value="Kitwe">Kitwe</option>
+                    <option value="Ndola">Ndola</option>
+                    <option value="Livingstone">Livingstone</option>
+                    <option value="Chipata">Chipata</option>
+                    <option value="Mansa">Mansa</option>
+                    <option value="Choma">Choma</option>
+                    <option value="Solwezi">Solwezi</option>
+                    <option value="Mongu">Mongu</option>
+                    <option value="Kasama">Kasama</option>
+                    <option value="Kabwe">Kabwe</option>
+                  </select>
+                  <div class="select-dropdown"></div>
+                </div>
+
+                <div class="form-group mt-3">   
+                  <input type="date" class="form-control" name="event_date" id="event_date" {% if form.is_bound %} value="{{ form.event_date.value }}{% endif %}" placeholder="Event Date" required>
+                  {% for err in form.event_date.errors %}
+                      <small class="text-danger ml-2">{{ err }}</small>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group mt-3">   
+                  <label class="form-control-placeholder">Event Time</label>
+                  <input type="time" class="form-control" name="event_time" id="event_time" {% if form.is_bound %} value="{{ form.event_time.value }}{% endif %}" required>
+                  {% for err in form.event_time.errors %}
+                      <small class="text-danger ml-2">{{ err }}</small>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group mt-3">
+                  <select class="form-select form-select-md" name="event_day" id="event_day" class="form-control form-control-user">
+                    <option disabled="disabled" selected="selected" required>Select Event Day</option>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                  </select>
+                  <div class="select-dropdown"></div>
+                </div>
+
+                <div class="form-group mt-3">
+                  <select class="form-select form-select-md" name="category" id="category" class="form-control form-control-user">
+                    <option disabled="disabled" selected="selected" required>Categories</option>
+                    <option value="Concerts">Concerts</option>
+                    <option value="Weekend Shows">Weekend Shows</option>
+                    <option value="Gospel Show">Gospel Show</option>
+                    <option value="Family Shows">Family Shows</option>
+                    <option value="Album launch">Album launch</option>
+                    <option value="Comedy Shows">Comedy Shows</option>
+                  </select>
+                  <div class="select-dropdown"></div> 
+                </div>
+
+                <div class="form-group mt-3">   
+                  <input type="text" class="form-control" name="charge" id="charge" {% if form.is_bound %} value="{{ form.charge.value }}{% endif %}" placeholder="Charges" required>
+                  {% for err in form.charge.errors %}
+                      <small class="text-danger ml-2">{{ err }}</small>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group mt-3">   
+                  <textarea class="form-control" type="text" placeholder="Addition Information" name="content" {% if form.is_bound %}value="{{ form.content.value }}{% endif %}"></textarea>
+                  {% for err in form.content.errors %}
+                    <small class="text-danger ml-2">{{ err }}</small>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group mt-3">   
+                  <input type="file" class="form-control" name="post_image" accept="image/*" placeholder="Unload Image">
+                </div>
+
+                <div class="form-group mt-3">   
+                  <button type="submit" class="form-control btn btn-primary">Submit Post</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section><!-- ======= Section End ======= -->
+
+{% endblock content %}

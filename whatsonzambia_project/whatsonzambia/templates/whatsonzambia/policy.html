@@ -1,0 +1,139 @@
+{% load static %}
+{% load hitcount_tags %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		{% if title %}
+			<title>Whats On Zambia &mdash; Entertainment Guide on your phone - {{ title }}</title>
+		{% else %}    
+			<title>Whats On Zambia &mdash; Entertainment Guide on your phone</title>
+		{% endif %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="This is a Guide for Entertainment" />
+		<meta name="keywords" content="a guide for entertainment, shows happening around zambia, all events happening around zambia, event guide on phone, event and shows, events, shows, responsive" />
+		<meta name="author" content="earthcomzambia.com" />
+
+		<!-- Facebook and Twitter integration -->
+		<meta property="og:title" content=""/>
+		<meta property="og:image" content=""/>
+		<meta property="og:url" content=""/>
+		<meta property="og:site_name" content=""/>
+		<meta property="og:description" content=""/>
+		<meta name="twitter:title" content="" />
+		<meta name="twitter:image" content="" />
+		<meta name="twitter:url" content="" />
+		<meta name="twitter:card" content="" />
+
+		<!-- Favicons -->
+		<link href="assets/img/favicon.png" rel="icon">
+		<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+		
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<!-- Vendor CSS Files -->
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/aos/aos.css' %}">
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/boxicons/boxicons.min.css' %}">
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/glightbox/css/glightbox.min.css' %}">
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/remixicon/remixicon.css' %}">
+		<link rel="stylesheet" href="{% static 'whatsonzambia/vendor/swiper/swiper-bundle.min.css' %}">
+		
+		<!-- Template Main CSS File -->
+		<link rel="stylesheet" href="{% static 'whatsonzambia/css/style.css' %}">
+	</head>
+	<body>
+		<!-- ======= Header ======= -->
+		<header id="header" class="fixed-top ">
+			<div class="container d-flex align-items-center">
+
+			<h1 class="logo me-auto"><a href="index.html"><img src="{% static 'images/whatsonzambia.png' %}" alt=""></a></h1>
+			<!-- Uncomment below if you prefer to use an image logo -->
+			<!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+			<nav id="navbar" class="navbar">
+				<ul>
+					<li><a class="nav-link scrollto active" href="{% url 'whatsonzambia-home' %}">Home</a></li>
+					<li><a class="nav-link scrollto" href="{% url 'whatsonzambia-about' %}">About</a></li>
+					{% if user.is_authenticated %}
+					<li><a class="nav-link scrollto" href="{% url 'post-create' %}">New Post</a></li>
+					<li><a class="nav-link scrollto" href="{% url 'profile' %}">Profile</a></li>
+					<li><a class="nav-link scrollto" href="{% url 'logout' %}">Logout</a></li>
+					{% else %}
+					<li><a class="nav-link scrollto" href="{% url 'login' %}">Login</a></li>
+					<li><a class="nav-link scrollto" href="{% url 'register' %}">Register</a></li>
+					{% endif %}
+				</ul>
+				<i class="bi bi-list mobile-nav-toggle"></i>
+			</nav><!-- .navbar -->
+			</div>
+			<hr>
+		</header><!-- End Header -->
+		
+		<div class="container-wrap">
+			<section id="about" class="about">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Terms of Service</h2>
+					</div>
+					<div class="row content">
+						<div class="col-lg-6">
+							<h2 class="heading text-center">Description</h2>
+							<p>
+								This is a weekend event guide. It’s an App that acts as a guide for anyone who want to go for a 
+								public gig, show or party. It provides the information such as the date, time, day, price and venue. 
+								It’s got a provision of searching for a particular event in a particular town. So regardless of 
+								where you are and you don’t know where to go for a weekend outing, this App is for you.
+							</p>
+						</div>
+						<div class="col-lg-6 pt-4 pt-lg-0">
+							<h2 class="heading text-center">As an Advertising Platform</h2>
+							<p>
+								This App can also be used as an advertising platform. You can advertise your entertainment 
+								packages in the features section. Any other adverts not entertainment in nature can be 
+								advertised in the section that appears at the bottom of every page.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section><!-- End About Us Section -->
+		</div>
+	
+		<!-- ======= Footer ======= -->
+		<footer id="footer">
+			<div class="container footer-bottom clearfix">
+			  <div class="copyright">
+				&copy; Copyright <strong><span>Earthcom</span></strong>. All Rights Reserved
+			  </div>
+			  <div class="credits">
+				<!-- All the links in the footer should remain intact. -->
+				<!-- You can delete the links only if you purchased the pro version. -->
+				<!-- Licensing information: https://bootstrapmade.com/license/ -->
+				<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+				Designed by <a href="https://earthcomzanbia.com/">Earthcom</a>
+			  </div>
+			</div>
+		</footer><!-- End Footer -->
+		
+		  <div id="preloader"></div>
+		<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+		<!-- Vendor JS Files -->
+		<script src="{% static 'whatsonzambia/vendor/aos/aos.js' %}"></script>
+		<script src="{% static 'whatsonzambia/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'whatsonzambia/vendor/glightbox/js/glightbox.min.js' %}"></script>
+		<script src="{% static 'whatsonzambia/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+		<script src="{% static 'whatsonzambia/vendor/swiper/swiper-bundle.min.js' %}"></script>
+		<script src="{% static 'whatsonzambia/vendor/waypoints/noframework.waypoints.js' %}"></script>
+		<script src="{% static 'whatsonzambia/vendor/php-email-form/validate.js' %}"></script>
+
+		<!-- Template Main JS File -->
+		<script src="{% static 'whatsonzambia/js/main.js' %}"></script>
+	</body>
+</html>
+

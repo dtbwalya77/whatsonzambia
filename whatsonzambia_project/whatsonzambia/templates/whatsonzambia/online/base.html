@@ -1,0 +1,266 @@
+{% load static %}
+{% load hitcount_tags %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  {% if title %}
+    <title>Whats On Zambia &mdash; Entertainment Guide on your phone - {{ title }}</title>
+  {% else %}    
+    <title>Whats On Zambia &mdash; Entertainment Guide on your phone</title>
+  {% endif %}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is a Guide for Entertainment" />
+	<meta name="keywords" content="a guide for entertainment, shows happening around zambia, all events happening around zambia, event guide on phone, event and shows, events, shows, responsive" />
+	<meta name="author" content="earthcomzambia.com" />
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+	
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+  <!-- Custom.css -->
+	<link rel="stylesheet" href="{% static 'whatsonzambia/css/custom.css' %}">
+
+  <!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'whatsonzambia/css/animate.css' %}">
+  <!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'whatsonzambia/css/icomoon.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'whatsonzambia/css/bootstrap.css' %}">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'whatsonzambia/css/magnific-popup.css' %}">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="{% static 'whatsonzambia/css/flexslider.css' %}">
+  <!-- Theme style  -->
+  <link href="{% static 'whatsonzambia/css/home.css' %}" rel="stylesheet">
+  <!-- Modernizr JS -->
+	<script src="{% static 'whatsonzambia/js/modernizr-2.6.2.min.js' %}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+  <style type='text/css'>
+    body {
+        font-size: 12px sans-serif;
+    }
+
+    .upper{ text-transform: uppercase;}
+
+    table {
+        background: slateblue;
+        color: #fff;
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid mediumslateblue;
+    }
+    td {
+        border: 1px solid darkslateblue;
+        padding: 2px;
+    }
+    th {
+        background: lightsteelblue;
+        color: rgb(246, 246, 250);
+        font-size: 12px;
+        text-align: left;
+    }
+    table tbody tr:first-child td {
+        background: mediumslateblue;
+    }
+
+    optgroup { 
+      font-size:40px; 
+    }
+
+    feat-dim {
+      font-size: 36px;
+      width: 280px;
+      height: 400px;
+    }
+    </style>
+
+	</head>
+	<body>
+		
+	<div class="fh5co-loader"></div>
+	
+	<div id="page">
+
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container-wrap">
+				<div class="top-menu">
+					<div class="row">
+						<div class="col-xs-2">
+							<div id="fh5co-logo"><img src="{% static 'images/whatsonzambia.png' %}" alt="WhatsOnZambia logo">  </a></div>
+						</div>
+	
+						<div class="col-xs-10 text-right menu-1">
+							<ul>
+								<li><a href="{% url 'whatsonzambia-home' %}">Home</a></li>
+								<li><a href="{% url 'whatsonzambia-about' %}">About</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'post-create' %}">New Post</a></li>
+                  <li><a href="{% url 'profile' %}">Profile</a></li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+							</ul>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</nav>
+
+	<div class="container-wrap">
+
+    <form method="POST">
+      {% csrf_token %} 
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th colspan="3">
+              <h4
+               class="mb-2 text-center">Search for Shows</h4>  
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <select class="form-select form-select-lg" name="day" aria-label="Default select example">
+                <option disabled="disabled" selected="selected">Event day</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </th>
+            <th>
+              <select class="form-select form-select-lg" name="town" aria-label="Default select example">
+                <option disabled="disabled" selected="selected">City</option>
+                <option value="Lusaka">Lusaka</option>
+                <option value="Kitwe">Kitwe</option>
+                <option value="Ndola">Ndola</option>
+              </select>
+            </th>
+            <th>
+              <span class="btn-group">
+                <button type="button" class="button button1">Go!</button>
+              </span>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
+    {% for feature in features %}
+		<div id="fh5co-about">
+			<div class="col-md-6 col-md-offset-3 text-center heading-section">
+				<h3>{{ feature.ft_title }}</h3>					
+			</div>			
+			<div class="row">
+        <div class="col-md-10 col-md-offset-1 animate-box">
+          <p><img src="{{ feature.ft_post_image.url }}" alt="Free HTML5 Bootstrap Template" class="img-responsive"></p>
+          <div class="fh5co-blog animate-box">
+            <div class="blog-text">
+              <span class="posted_on">{{ feature.ft_event_day }}</span>
+              <span class="posted_on">
+                <h3>
+                  <strong>Date:</strong> {{ feature.ft_event_date }} | 
+                  <strong>Time:</strong> {{ feature.ft_event_time }}
+                </h3>
+              </span>
+              <ul class="stuff">
+                <li><i class="fa fa-thumbs-o-up fa_custom" style="font-size:16px;color:blue"></i>{{feature.total_ft_likes}}</li>
+								<li><i class="fa fa-eye fa_custom" style="font-size:16px;color:blue"></i>{% get_hit_count for feature %}</li>
+								<li>                  
+                  <form action="{% url 'feature-detail' pk=feature.id %}" method="get">
+                    <input type="hidden" name="feature-id" value="{{feature.id}}">
+                    <button type="submit" class="button button1">Read More</button>
+                  </form>
+                </li>
+							</ul>
+            </div>
+          </div>
+        </div>
+			</div>            
+		</div>
+    {% endfor %}
+		
+    <!-- Home page Start Here --> 
+		<div id="fh5co-blog">
+			<div class="row">
+        {% block content %}{% endblock %}
+			</div>
+		</div>
+
+    <!-- Pagination -->
+    
+	</div><!-- END container-wrap -->
+
+	<div class="container-wrap">
+		<footer id="fh5co-footer" role="contentinfo">		
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block">&copy; 2022 Earthcom Ltd. All Rights Reserved.</small> 
+						<small class="block">Designed by <a href="http://earthcomzambia.com" target="_blank"> Earthcom Ltd</a> </small>
+					</p>
+					<p>
+						<ul class="fh5co-social-icons">
+              <a href="#" class="fa fa-facebook"></a>
+              <a href="#" class="fa fa-twitter"></a>
+              <a href="#" class="fa fa-linkedin"></a>
+              <a href="#" class="fa fa-dribbble"></a>
+						</ul>
+					</p>
+				</div>
+			</div>
+		</footer>
+	</div><!-- END container-wrap -->
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+	</div>
+
+
+	<!-- jQuery -->
+	<script src="{% static 'whatsonzambia/js/jquery.min.js' %}"></script>
+	<!-- jQuery Easing -->
+	<script src="{% static 'whatsonzambia/js/jquery.easing.1.3.js' %}"></script>
+	<!-- Bootstrap -->
+	<script src="{% static 'whatsonzambia/js/bootstrap.min.js' %}"></script>
+	<!-- Waypoints -->
+	<script src="{% static 'whatsonzambia/js/jquery.waypoints.min.js' %}"></script>
+	<!-- Flexslider -->
+	<script src="{% static 'whatsonzambia/js/jquery.flexslider-min.js' %}"></script>
+	<!-- Magnific Popup -->
+	<script src="{% static 'whatsonzambia/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'whatsonzambia/js/magnific-popup-options.js' %}"></script>
+	<!-- Counters -->
+	<script src="{% static 'whatsonzambia/js/jquery.countTo.js' %}"></script>
+	<!-- Main -->
+	<script src="{% static 'whatsonzambia/js/main.js' %}"></script>
+	</body>
+</html>
+

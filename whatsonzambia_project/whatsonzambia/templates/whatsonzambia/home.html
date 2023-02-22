@@ -1,0 +1,48 @@
+{% extends "whatsonzambia/base.html" %}
+{% block content %}
+{% load hitcount_tags %}
+
+  {% for post in posts %}   
+  <!-- ======= Post Section ======= -->
+  <section id="post" class="post section-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 d-flex align-items-center justify-content-center">
+          <img src="{{ post.post_image.url }}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="fh5co-blog animate-box">
+      <div class="blog-text">
+        <h3>{{ post.event_day }}</h3>
+        <span class="posted_on">
+          <strong>Date:</strong> {{ post.event_date }} |
+          <strong>Time:</strong> {{ post.event_time }}
+        </span>
+        <ul class="stuff mb-1">
+          <li><i class="fa fa-thumbs-o-up fa_custom" style="font-size:16px;color:blue"></i>{{post.total_likes}}</li>
+          <li><i class="fa fa-eye fa_custom" style="font-size:16px;color:blue"></i>{% get_hit_count for post %}</li>
+          <li>
+            <form action="{% url 'post-detail' pk=post.id %}" method="get">
+              <input type="hidden" name="post-id" value="{{post.id}}">
+              <button type="submit" class="button button1">Read More</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section><!-- End Post Section -->
+  {% endfor %}
+
+  <!-- Pagination -->
+  <div>
+    {% if posts.has_previous %}
+      <a class="button button1" href="{% url 'whatsonzambia-home' %}?page={{ posts.previous_page_number }}">Prev</a>
+    {% endif %}
+    {% if posts.has_next %}
+      <a class="button button1" href="{% url 'whatsonzambia-home' %}?page={{ posts.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+  
+{% endblock content %}

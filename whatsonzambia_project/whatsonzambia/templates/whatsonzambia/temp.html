@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% if title %}
+      <title>Whats on Zambia - {{ title }}</title>
+    {% else %}    
+      <title>Whats on Zambia</title>
+    {% endif %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'whatsonzambia/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'whatsonzambia/css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'whatsonzambia/css/custom.css' %}" rel="stylesheet">
+    <style>
+      .upper{ text-transform: uppercase;}
+    </style>
+  </head>
+  <body>
+
+    <div class="card mb-8">
+      <h5 class="card-title h5 upper text-center">{{ object.ft_title }}</h5>
+      <a href="#!"><img class="card-img-top" src="{{ object.ft_post_image.url }}" alt="..." /></a>  
+      <div class="text-center">
+        <h6 class="card-title h6 text-primary"><strong>Date:</strong> {{ object.ft_event_date }} |<strong> Time:</strong> {{ object.ft_event_time }}</h6> 
+        <h5 class="card-title h5 text-secondary"><strong><u>{{ object.ft_event_day }}</u></strong></h5>
+        <h6 class="card-title h6 text-primary"><strong> Venue:</strong> {{ object.ft_venue }}</h6>
+        <h6 class="card-title h6 text-primary"><strong>Town/City:</strong> {{ object.ft_town }}</h6>
+        <h6 class="card-title h6 text-secondary"><strong> Charges:</strong> {{ object.ft_charge }}</h6>
+      </div>
+      <hr>
+      {{ object.ft_content }}
+
+        <ul class="stuff">
+          <li>
+            <form action="{% url 'feature_like' pk=feature.id %}" method="post">
+              {% csrf_token %}
+              {% if like_status %}
+                <button class="button button1" type="submit" name="feature-id" value="{{feature.id}}" >
+                  Unlike <i class="fa fa-thumbs-o-down"></i>
+                </button>        
+              {% else %}
+                <button class="button button1" type="submit" name="feature-id" value="{{feature.id}}" >
+                  like <i class="fa fa-thumbs-o-up"></i>
+                </button>  
+              {% endif %}
+            </form>
+          </li>
+          <li>
+            <a class="button button1" href="{% url 'whatsonzambia-home' %}">Go Back1</a>
+          </li>
+        </ul>
+
+        <div class="card-footer text-muted">
+          {% if object.author == user %}
+          Posted: {{ object.date_posted }} by <a href="#">{{ object.author }}</a>
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'feature-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'feature-delete' object.id %}">Delete</a>
+          </div>
+          {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Earthcom Ltd 2022</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'whatsonzambia/js/jquery.min.js' %}"></script>
+    <script src="{% static 'whatsonzambia/js/bootstrap.bundle.min.js' %}"></script>
+
+    </div>
+  </body>
+</html>

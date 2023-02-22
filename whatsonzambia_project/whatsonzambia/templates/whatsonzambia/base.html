@@ -1,0 +1,236 @@
+{% load static %}
+{% load hitcount_tags %}
+{% load social_share %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  {% if title %}
+    <title>Whats On Zambia &mdash; Entertainment Guide - {{ title }}</title>
+  {% else %}    
+    <title>Whats On Zambia &mdash; Entertainment Guide</title>
+  {% endif %}
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/aos/aos.css' %}">
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/boxicons/boxicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/glightbox/css/glightbox.min.css' %}">
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/remixicon/remixicon.css' %}">
+  <link rel="stylesheet" href="{% static 'whatsonzambia/vendor/swiper/swiper-bundle.min.css' %}">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'whatsonzambia/css/style.css' %}">
+
+  <style type='text/css'>
+    optgroup { 
+      font-size:40px; 
+    }
+  </style>
+
+  <!-- =======================================================
+  * Template Name: Arsha - v4.11.0
+  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="index.html"><img src="{% static 'images/whatsonzambia.png' %}" alt=""></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto active" href="{% url 'whatsonzambia-home' %}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'whatsonzambia-about' %}">About</a></li>
+            {% if user.is_authenticated %}
+              <li><a class="nav-link scrollto" href="{% url 'post-create' %}">New Post</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'profile' %}">Profile</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+              <li><a class="nav-link scrollto" href="{% url 'login' %}">Login</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+    <hr>
+  </header><!-- End Header -->
+
+
+    <div class="container-wrap">
+      <form method="POST" >
+        {% csrf_token %} 
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <th colspan="3">
+                <h4 class="table_text text-center mb-1">Search for Shows</h4>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <select class="form-select form-select-sm" name="day" aria-label="Default select example">
+                  <option disabled="disabled" selected="selected">Event day</option>
+                  <option value="Friday">Sunday</option>
+                  <option value="Saturday">Monday</option>
+                  <option value="Sunday">Tuesday</option>
+                  <option value="Friday">Wednesday</option>
+                  <option value="Friday">Thusday</option>
+                  <option value="Sunday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                </select>
+              </th>
+              <th>
+                <select class="form-select form-select-sm" name="town" aria-label="Default select example">
+                  <option disabled="disabled" selected="selected">City</option>
+                  <option value="Lusaka">Lusaka</option>
+                  <option value="Kitwe">Kitwe</option>
+                  <option value="Ndola">Ndola</option>
+                  <option value="Livingstone">Livingstone</option>
+                  <option value="Chipata">Chipata</option>
+                  <option value="Mansa">Mansa</option>
+                  <option value="Choma">Choma</option>
+                  <option value="Solwezi">Solwezi</option>
+                  <option value="Mongu">Mongu</option>
+                  <option value="Kasama">Kasama</option>
+                  <option value="Kabwe">Kabwe</option>
+                </select>
+              </th>
+              <th>
+                <span class="btn-group">
+                  <button type="submit" class="button button1" name="searched"><i class="fa fa-search"></i> Search</button>
+                  {% post_to_facebook object_or_url '<button type="submit" class="button button1" name="searched"><i class="fa fa-share-alt"></i> Share</button>' %}
+                </span>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>    
+
+  <!-- ======= Hero Section ======= -->
+  {% for feature in features %}
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <h1>{{ feature.ft_title }}</h1>
+          <h2>{{ feature.ft_content }}</h2>
+          <div class="d-flex justify-content-center justify-content-lg-start">
+            <form action="{% url 'feature-detail' pk=feature.id %}" method="get">
+              <input type="hidden" name="feature-id" value="{{feature.id}}">
+              <button type="submit" class="button button1">Read More</button>
+            </form>         
+          </div>
+          <span>
+            <i class="fa fa-thumbs-o-up fa_custom" style="font-size:16px;color:blue"></i>{{feature.total_ft_likes}}
+            <i class="fa fa-eye fa_custom" style="font-size:16px;color:blue"></i>{% get_hit_count for feature %}
+          </span>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="{{ feature.ft_post_image.url }}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+  <hr>
+  {% endfor %}
+
+  <main id="main">
+
+    {% block content %}{% endblock %}
+
+    <div class="container-wrap">
+      <form method="POST" >
+        {% csrf_token %} 
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <th colspan="3">
+                <h4 class="table_text text-center mb-1">Search Event by Category</h4>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <select class="form-select form-select-sm" name="town" aria-label="Default select example">
+                  <option disabled="disabled" selected="selected" required>Categories</option>
+                  <option value="Concerts">Concerts</option>
+                  <option value="Weekend Shows">Weekend Shows</option>
+                  <option value="Gospel Show">Gospel Show</option>
+                  <option value="Family Shows">Family Shows</option>
+                  <option value="Album launch">Album launch</option>
+                  <option value="Comedy Shows">Comedy Shows</option>
+                </select>
+              </th>
+              <th>
+                <span class="btn-group">
+                  <button type="submit" class="button button1" name="searched">Search</button>
+                </span>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Earthcom</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+        Designed by <a href="https://earthcomzanbia.com/">Earthcom</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'whatsonzambia/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'whatsonzambia/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'whatsonzambia/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'whatsonzambia/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'whatsonzambia/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'whatsonzambia/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'whatsonzambia/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'whatsonzambia/js/main.js' %}"></script>
+
+</body>
+
+</html>
