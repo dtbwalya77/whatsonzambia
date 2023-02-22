@@ -1,0 +1,98 @@
+.input-group{
+    position:relative;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:stretch;
+    width:100%
+}
+.input-group>.form-control,.input-group>.form-floating,.input-group>.form-select{
+    position:relative;
+    flex:1 1 auto;
+    width:1%;
+    min-width:0
+}
+.input-group>.form-control:focus,.input-group>.form-floating:focus-within,.input-group>
+.form-select:focus{z-index:5}
+
+.input-group .btn{
+    position:relative;z-index:2
+}
+.input-group .btn:focus{
+    z-index:5
+}
+
+.form-select{
+    display:block;
+    width:100%;
+    padding:.375rem 2.25rem .375rem .75rem;
+    -moz-padding-start:calc(0.75rem - 3px);
+    font-size:1rem;
+    font-weight:400;
+    line-height:1.5;
+    color:#212529;
+    background-color:#fff;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat:no-repeat;
+    background-position:right .75rem center;
+    background-size:16px 12px;
+    border:1px solid #ced4da;
+    border-radius:.375rem;
+    transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance:none;
+    -moz-appearance:none;appearance:none
+    }
+
+    @media (prefers-reduced-motion:reduce){
+        .form-select{transition:none}
+    }
+    .form-select:focus{
+        border-color:#86b7fe;outline:0;
+        box-shadow:0 0 0 .25rem rgba(13,110,253,.25)
+    }
+    .form-select[multiple],.form-select[size]:not([size="1"]){padding-right:.75rem;background-image:none}
+    .form-select:disabled{background-color:#e9ecef}
+    .form-select:-moz-focusring{
+        color:transparent;
+        text-shadow:0 0 0 #212529
+    }
+    .form-select-sm{
+        padding-top:.25rem;padding-bottom:.25rem;
+        padding-left:.5rem;
+        font-size:.875rem;
+        border-radius:.25rem
+    }
+    .form-select-lg{
+        padding-top:.5rem;
+        padding-bottom:.5rem;padding-left:1rem;
+        font-size:1.25rem;
+        border-radius:.5rem
+    }
+
+    /* ============ Custom Buttons ================== */
+    .button {        
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 2px 2px;
+        cursor: pointer;
+      }
+      .button1 {
+        background-color: rgb(13, 55, 104); /* Grey */
+        border-radius: 20px;
+        padding: 2px;
+        width: 70px;
+        height: 25px;
+      }
+      .button2 {
+        background-color: rgb(13, 55, 104); /* Grey */
+        border-radius: 2px;
+        height: 50px;
+        width: 100%;
+      }
+  
+      .button3 {border-radius: 8px;}
+      .button4 {border-radius: 12px;}
+      .button5 {border-radius: 50%;}
